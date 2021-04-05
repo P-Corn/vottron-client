@@ -39,7 +39,7 @@ function StudentCourse({history}) {
   }
 
   const getCourseData = (id) => {
-    Axios.get("http://localhost:3001/studentcourse/:id", {
+    Axios.get("https://vottron.herokuapp.com/studentcourse/:id", {
 			params: {
 					id
 			}
@@ -49,7 +49,7 @@ function StudentCourse({history}) {
   }
 
   const getActivityData = (id) => {
-    Axios.get("http://localhost:3001/studentactivities/:id", {
+    Axios.get("https://vottron.herokuapp.com/studentactivities/:id", {
 			params: {
 					id
 			}
