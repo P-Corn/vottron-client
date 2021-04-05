@@ -92,7 +92,7 @@ function CourseInfoEdit({title, desc, img, setEditCourse, getCourseDetails, id})
 					variant="outlined"
 					fullWidth
 					onChange={(e) => setCourseImg(e.target.value)}
-					>
+					/>
 				</Grid>
 				<Grid
 				item
