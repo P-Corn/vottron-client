@@ -1,0 +1,36 @@
+hr {
+    margin-bottom: 2rem;
+}
+
+.color {
+    color: green;
+}
+
+.form-container {
+    min-width: 500px;
+}
+
+.card-content {
+    min-height: 90px;
+}
+
+.dashboard-label__img {
+    padding-bottom: 8px;
+}
+
+.dashboard-details-container {
+    padding-bottom: 40px;
+}
+
+.course-dashboard-paper {
+    padding: 40px 40px 0 40px;
+    height: 100%;
+}
+
+.dashboard-card-title {
+    padding-bottom: 30px;
+}
+
+.cancel-button {
+    padding-right: 30px;
+}
