@@ -233,7 +233,7 @@ function StudentsTable({history, courseData}) {
   };
 
   const getStudents = () => {
-    Axios.get("http://localhost:3001/students").then((response) => {
+    Axios.get("https://vottron.herokuapp.com/students").then((response) => {
       const data = response.data;
       // let dataArray = [...rows];
       setRows([...data]);
