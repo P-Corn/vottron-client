@@ -54,7 +54,8 @@ function StudentCourse({history}) {
 					id
 			}
     }).then((response) => {
-      setActivityData([...response.data]);
+		console.log(response)
+      	setActivityData([...response.data]);
     })
   }
 
