@@ -34,7 +34,7 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
   	useEffect(() => {getCourseTitles()}, []);
 
 	const updateCourse = () => {
-		Axios.post('http://localhost:3001/students/update', {
+		Axios.post('https://vottron.herokuapp.com/students/update', {
 			idVal,
 			firstNameVal,
 			lastNameVal,

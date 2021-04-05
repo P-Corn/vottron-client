@@ -87,13 +87,12 @@ function CourseInfoEdit({title, desc, img, setEditCourse, getCourseDetails, id})
 				className="dashboard-details-container"
 				>
 					<Typography className="dashboard-label__img" variant="subtitle1">Image:</Typography>
-					<Card>
-						<CardMedia
-						component="img"
-						image={courseImg}
-						height="220"
-						/>
-					</Card>
+					<TextField 
+					value={courseImg}
+					variant="outlined"
+					fullWidth
+					onChange={(e) => setCourseImg(e.target.value)}
+					>
 				</Grid>
 				<Grid
 				item
