@@ -65,7 +65,6 @@ function StudentCourse({history}) {
 			}
     }).then((response) => {
 		console.log(response)
-      	setCommentData([...response.data]);
     })
   }
 

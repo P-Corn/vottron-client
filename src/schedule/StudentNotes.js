@@ -9,10 +9,12 @@ const useStyles = makeStyles({
 
 function StudentNotes({studentId, commentDate, commentText}) {
 
-	let date = new Date();
+	let dateObj = new Date();
 
   const classes = useStyles();
 
+	const [comment, setComment] = useState(commentText);
+	const [date, setDate] = useState(commentDate);
 	const [newComment, setNewComment] = useState("");
 
 	const addComment = (newDate) => {
@@ -22,13 +24,15 @@ function StudentNotes({studentId, commentDate, commentText}) {
 			newDate
 		}).then((res) => {
 			console.log(res)
+			setComment(newComment)
+			setDate(newDate)
 		})
 	}
 
 	const createDate = () => {
-		const day = date.getDate()
-		const month = date.getMonth() + 1
-		const year = date.getFullYear()
+		const day = dateObj.getDate()
+		const month = dateObj.getMonth() + 1
+		const year = dateObj.getFullYear()
 		const commentDate = `${month}/${day}/${year}`
 		addComment(commentDate)
 	}
@@ -46,8 +50,8 @@ function StudentNotes({studentId, commentDate, commentText}) {
 			<hr></hr>
 			<Box pb={1}/>
 			<div>
-				<Typography color="textSecondary" variant="subtitle2">{commentDate}</Typography>
-				<Typography variant="h6">{commentText}</Typography>
+				<Typography color="textSecondary" variant="subtitle2">{date}</Typography>
+				<Typography variant="h6">{comment}</Typography>
 			</div>
 			<Box py={2}/>
 			<form onSubmit={(e) => handleSubmit(e)}>
