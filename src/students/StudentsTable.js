@@ -11,15 +11,11 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
-import Toolbar from "@material-ui/core/Toolbar";
+import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import Checkbox from "@material-ui/core/Checkbox";
-import IconButton from "@material-ui/core/IconButton";
-import Tooltip from "@material-ui/core/Tooltip";
 import AddIcon from "@material-ui/icons/Add";
 import Grid from "@material-ui/core/Grid"
-import FilterListIcon from "@material-ui/icons/FilterList";
 import AddStudentModal from "./AddStudentModal";
 import Axios from 'axios';
 import {withRouter} from 'react-router-dom';
@@ -330,7 +326,7 @@ function StudentsTable({history, courseData}) {
           courseData={courseData}
           getStudents={getStudents}
       />
-      <hr></hr>
+      <Box pb={3}/>
       <Paper className={classes.paper}>
         {/* <EnhancedTableToolbar getStudents={getStudents} courseData={courseData} /> */}
         <TableContainer>

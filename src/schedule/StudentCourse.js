@@ -1,17 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {Container, Grid, Typography, Button, Paper} from '@material-ui/core';
+import {Container, Grid, Typography, Box, Paper} from '@material-ui/core';
 import Axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles';
 import { useRouteMatch } from "react-router-dom";
 import {withRouter} from 'react-router-dom';
 import StudentActivities from './StudentActivities'
+import StudentNotes from './StudentNotes'
 
 const useStyles = makeStyles({
 	paper: {
 		padding: '30px'
-	},
-	cardTitle: {
-		paddingBottom: "20px"
 	}
 })
 
@@ -25,6 +23,7 @@ function StudentCourse({history}) {
   const [studentData, setStudentData] = useState({});
   const [courseData, setCourseData] = useState({});
   const [activityData, setActivityData] = useState([]);
+  const [commentData, setCommentData] = useState([]);
 
   const getStudentData = (id) => {
     Axios.get("https://vottron.herokuapp.com/students/:id", {
@@ -59,8 +58,20 @@ function StudentCourse({history}) {
     })
   }
 
+  const getCommentData = (id) => {
+    Axios.get("https://vottron.herokuapp.com/studentcomments/:id", {
+			params: {
+					id
+			}
+    }).then((response) => {
+		console.log(response)
+      	setCommentData([...response.data]);
+    })
+  }
+
   useEffect (() => {
     getStudentData(id);
+    getCommentData(id);
     getCourseData(id);
     getActivityData(id);
   },[])
@@ -77,20 +88,38 @@ function StudentCourse({history}) {
 					>
 						<Grid
 						item
-						lg={5}
+						xs={12}
+            md={5}
 						>
-							<Paper className={classes.paper}>
-								<Typography className={classes.cardTitle} color="primary" variant="h5">
-									Student Info
-								</Typography>
-								<Typography variant="h4">
-									{`${studentData.firstname} ${studentData.lastname}`}
-								</Typography>
-							</Paper>
+							{/* <Paper className={classes.paper}> */}
+                <Grid
+                container
+                direction="column"
+                >
+                  <Grid item>
+                    <Typography className={classes.cardTitle} color="primary" variant="h6">
+                      Student
+                    </Typography>
+                    <hr></hr>
+                    <Box pb={1}/>
+                    <Typography variant="h4">
+                      {`${studentData.firstname} ${studentData.lastname}`}
+                    </Typography>
+                  </Grid>
+                  <Box py={4}/>
+                  <Grid item>
+                    <StudentNotes 
+                    commentText={commentData[0].commenttext}
+                    commentDate={commentData[0].commentdate}
+                    studentId={studentData.studentid}/>
+                  </Grid>
+                </Grid>	
+							{/* </Paper> */}
 						</Grid>
 						<Grid
 						item
-						lg={7}
+            xs={12}
+            md={7}
 						>
 							<Paper className={classes.paper}>
 								<Typography className={classes.cardTitle} color="primary" variant="h5">

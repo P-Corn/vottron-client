@@ -54,13 +54,11 @@ function Courses() {
               Add
             </Button>
           </Grid>
-
+          <Box pb={3}/>
           <AddCourseModal
             openModal={openModal}
             handleClose={handleClose}
           ></AddCourseModal>
-
-          <hr></hr>
             <Grid
             container
             spacing={9}

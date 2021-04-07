@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Container, Grid, Typography, Button} from '@material-ui/core';
+import {Container, Grid, Typography, Button, Box} from '@material-ui/core';
 import StudentCard from './StudentCard';
 import Axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles';
@@ -52,7 +52,7 @@ function Schedule() {
               Change View
             </Button>
           </Grid>
-          {/* <hr></hr> */}
+          <Box pb={3}/>
           <Typography variant="h6" color="textSecondary">
             Monday
           </Typography>
