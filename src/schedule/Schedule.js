@@ -10,6 +10,8 @@ const useStyles = makeStyles({
   }
 })
 
+
+
 function Schedule() {
 
   const classes = useStyles();
@@ -23,7 +25,9 @@ function Schedule() {
 
   const getStudents = () => {
     Axios.get("https://vottron.herokuapp.com/students").then((response) => {
+      console.log(Date.now())
       setStudents([...response.data]);
+      console.log(Date.now())
     })
   }
 

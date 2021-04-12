@@ -362,10 +362,10 @@ function StudentsTable({history, courseData}) {
                         id={labelId}
                         scope="row"
                       >
-                        {row.firstname}
+                        {`${row.firstname} ${row.lastname}`}
                       </TableCell>
                       <TableCell align="left">{row.course}</TableCell>
-                      <TableCell align="right">{row.studentid}</TableCell>
+                      <TableCell align="right">{row.active}</TableCell>
                       <TableCell align="right">{row.studentdob}</TableCell>
                       <TableCell align="right">{row.enrolldate}</TableCell>
                     </TableRow>

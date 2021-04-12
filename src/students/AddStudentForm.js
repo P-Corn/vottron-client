@@ -21,11 +21,11 @@ function AddStudentForm({courseData, handleClose, getStudents}) {
     const [dob, setDob] = useState("");
     const [year, setYear] = useState("");
     const [courses] = useState([...courseData]);
-    const [enrollDate] = useState("2021/01/01");
+    // const [enrollDate] = useState("2021/01/01");
     const [weekDay, setWeekDay] = useState("")
     const [weekDays] = useState(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]);
 
-    const addStudent = (dob, {courseid, coursetitle, coursedescription, courseimage}) => {
+    const addStudent = (dob, {courseid, coursetitle, coursedescription, courseimage}, enrollDate) => {
         Axios.post('https://vottron.herokuapp.com/students', {
             studentId,
             firstName,
@@ -70,13 +70,21 @@ function AddStudentForm({courseData, handleClose, getStudents}) {
                 })
             })
         }))
-        
     }
+
+    const createDate = (dob, courseChoice) => {
+		const enrollDay = dateObj.getDate()
+		const enrollMonth = dateObj.getMonth() + 1
+		const enrollYear = dateObj.getFullYear()
+		const enrollDate =  `${enrollMonth}/${enrollDay}/${enrollYear}`
+        console.log(`${enrollMonth}/${enrollDay}/${enrollYear}`)
+        addStudent(dob, courseChoice, enrollDate)
+	}
 
     const handleSubmit = (e, courseChoice) => {
         e.preventDefault();
         const dob = `${month}/${day}/${year}`;
-        addStudent(dob, courseChoice);
+        createDate(dob, courseChoice);
     }
 
   return (

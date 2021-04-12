@@ -11,10 +11,10 @@ function StudentNotes({studentId, commentDate, commentText}) {
 
 	let dateObj = new Date();
 
-  const classes = useStyles();
+  	const classes = useStyles();
 
-	const [comment, setComment] = useState(commentText);
-	const [date, setDate] = useState(commentDate);
+	const [comment, setComment] = useState();
+	const [date, setDate] = useState();
 	const [newComment, setNewComment] = useState("");
 
 	const addComment = (newDate) => {
@@ -26,8 +26,14 @@ function StudentNotes({studentId, commentDate, commentText}) {
 			console.log(res)
 			setComment(newComment)
 			setDate(newDate)
+			setNewComment("")
 		})
 	}
+
+	useEffect(() => {
+		setComment(commentText);
+		setDate(commentDate);
+	}, [commentDate, commentText])
 
 	const createDate = () => {
 		const day = dateObj.getDate()
@@ -51,7 +57,9 @@ function StudentNotes({studentId, commentDate, commentText}) {
 			<Box pb={1}/>
 			<div>
 				<Typography color="textSecondary" variant="subtitle2">{date}</Typography>
-				<Typography variant="h6">{comment}</Typography>
+				<Typography variant="body1">
+					{comment}
+				</Typography>
 			</div>
 			<Box py={2}/>
 			<form onSubmit={(e) => handleSubmit(e)}>
