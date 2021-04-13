@@ -25,9 +25,8 @@ function Schedule() {
 
   const getStudents = () => {
     Axios.get("https://vottron.herokuapp.com/students").then((response) => {
-      console.log(Date.now())
+      console.log(response)
       setStudents([...response.data]);
-      console.log(Date.now())
     })
   }
 
@@ -63,7 +62,7 @@ function Schedule() {
           <hr/>
           <Grid
           container
-          spacing={5}
+          spacing={7}
           className={classes.section}
           >
             {students.filter(student => student.weekday == "Monday").map(filteredStudent => (
