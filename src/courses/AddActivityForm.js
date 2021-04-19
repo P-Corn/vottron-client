@@ -6,24 +6,20 @@ import { useRouteMatch } from "react-router-dom";
 
 function AddActivityForm({getActivities, handleClose, activityData}) {
 
-    const createId = () => {
-        return Math.floor(Math.random() * 10000);
-    }
-
     const url = useRouteMatch("/courses/:id");
     const id = url.params.id;
 
-    const [activityId] = useState(createId);
     const [activityTitle, setActivityTitle] = useState("");
     const [activityDesc, setActivityDesc] = useState("");
+    const [activitySolution, setActivitySolution] = useState("");
     const [courseId] = useState(id);
     const [activityOrder] = useState(activityData.length + 1);
 
     const addActivity = () => {
         Axios.post('https://vottron.herokuapp.com/courses/:id/activities', {
-            activityId,
             activityTitle,
             activityDesc,
+            activitySolution,
             courseId,
             activityOrder
         }).then((res) => {
@@ -59,8 +55,7 @@ function AddActivityForm({getActivities, handleClose, activityData}) {
                     <TextField 
                      fullWidth={true} 
                      id="Activity title" 
-                     label="Activity title" 
-                     variant="filled"
+                     label="Title" 
                      value={activityTitle}
                      onChange={(e) => setActivityTitle(e.target.value)}
                     />
@@ -73,14 +68,30 @@ function AddActivityForm({getActivities, handleClose, activityData}) {
             >
                 <Grid xs={12} item>
                     <TextField
-                        variant="filled"
                         multiline
-                        rows={4}
+                        rows={3}
                         fullWidth={true} 
-                        id="Description" 
-                        label="Activity description"
+                        id="Instructions" 
+                        label="Instructions"
                         value={activityDesc}
                         onChange={(e) => setActivityDesc(e.target.value)}
+                    />
+                </Grid>
+            </Grid>
+            <Grid 
+             container
+             spacing={4}
+             className="form-row"
+            >
+                <Grid xs={12} item>
+                    <TextField
+                        multiline
+                        rows={5}
+                        fullWidth={true} 
+                        id="Solution" 
+                        label="Solution"
+                        value={activitySolution}
+                        onChange={(e) => setActivitySolution(e.target.value)}
                     />
                 </Grid>
             </Grid>

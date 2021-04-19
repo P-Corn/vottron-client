@@ -12,7 +12,7 @@ function CourseInfoEdit({title, desc, img, setEditCourse, getCourseDetails, id})
     const [courseImg, setCourseImg] = useState(img);
 
 	const updateCourse = (id) => {
-		Axios.post('https://vottron.herokuapp.com/courses/:id', {
+		Axios.post('https://vottron.herokuapp.com/courses/update', {
 			courseId,
 			courseTitle,
 			courseDesc,
@@ -20,6 +20,15 @@ function CourseInfoEdit({title, desc, img, setEditCourse, getCourseDetails, id})
 		})
 		.then(() => {
 			getCourseDetails(id);
+			Axios.post('https://vottron.herokuapp.com/studentcourses/update/', {
+				courseId,
+				courseTitle,
+				courseDesc,
+				courseImg,
+			})
+			.then((res) => {
+				console.log(res)
+			})
 		})
 	}
 

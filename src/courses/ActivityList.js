@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import {ListItem, ListItemText, ListItemAvatar, Avatar, Divider} from '@material-ui/core';
+import {ListItem, ListItemText, ListItemAvatar, Avatar, Grid, Typography, Button, Box} from '@material-ui/core';
 import { FixedSizeList } from 'react-window';
+import Arrow from '@material-ui/icons/ArrowForwardIos';
+import Add from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,25 +13,31 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
 	size: {
-		width: theme.spacing(4.5),
+		width: theme.spacing(4),
 		fontSize: "1.15rem",
-		height: theme.spacing(4.5),
+		height: theme.spacing(4),
 		color: "white",
 		backgroundColor: "#1f287a",
 	},
 	listItem: {
-		paddingLeft: 3,
+		paddingLeft: 16,
 	}
 }));
 
-export default function ActivityList({activityData, contentControl}) {
-  const classes = useStyles();
+export default function ActivityList({activityData, contentControl, handleOpen}) {
+  const classes = useStyles()
 
 	function renderRow(props) {
 		const { index, style } = props;
 		
 			return (
-				<ListItem className={classes.listItem} onClick={() => contentControl(activityData[index])} button style={style} key={index}>
+				<ListItem 
+				className={classes.listItem} 
+				onClick={() => contentControl(activityData[index])} 
+				button 
+				style={style}
+				key={index}
+				>
 					<ListItemAvatar>
 						<Avatar className={classes.size}>
 							{index + 1}
@@ -39,6 +47,7 @@ export default function ActivityList({activityData, contentControl}) {
 					primary={activityData[index].activitytitle} 
 					secondary={activityData[index].activitydescription}
 					/>
+					<Arrow color="primary"/>
 				</ListItem>
 			);
 	}
@@ -48,11 +57,41 @@ export default function ActivityList({activityData, contentControl}) {
 		style: PropTypes.object.isRequired,
 	};
 
-  return (
-    <div className={classes.root}>
-      <FixedSizeList height={485} width="100%" itemSize={92} itemCount={activityData.length}>
-        {renderRow}
-      </FixedSizeList>
-    </div>
-  );
+  	return (
+		<div className={classes.root}>
+			<Grid
+			container
+			justify="space-between"
+			>
+				<Grid
+				item
+				>
+					<Typography 
+					className="dashboard-card-title" 
+					variant="h5"
+					color="primary"
+					>
+					Activities
+					</Typography>
+				</Grid>
+			<Grid
+			item
+			
+			>
+				<Button
+				color="primary"
+				variant="contained"
+				onClick={handleOpen}
+				startIcon={<Add/>}
+				>
+					Add
+				</Button>
+			</Grid>
+		</Grid>
+		<Box py={1}/>
+		<FixedSizeList height={485} width="100%" itemSize={85} itemCount={activityData.length}>
+			{renderRow}
+		</FixedSizeList>
+		</div>
+  	);
 }

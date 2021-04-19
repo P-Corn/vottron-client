@@ -47,7 +47,6 @@ function AddStudentForm({courseData, handleClose, getStudents}) {
                 courseimage,
                 courseid
             }).then((res) => {
-                console.log(res)
                 Axios.get('https://vottron.herokuapp.com/activities/:id', {
                     params: {
                         id: courseid,
@@ -55,10 +54,11 @@ function AddStudentForm({courseData, handleClose, getStudents}) {
                 }).then((res) => {
                     let activityData = [...res.data];
                     for(let activity of activityData){
-                        const {activityid, activitytitle, activitydescription, activityorder} = activity;
+                        const {activityid, activitytitle, activitydescription, activitysolution, activityorder} = activity;
                         Axios.post('https://vottron.herokuapp.com/activities/studentactivities', {
                             activitytitle,
                             activitydescription,
+                            activitysolution,
                             studentId,
                             activityid,
                             activityorder,

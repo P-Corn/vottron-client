@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {Paper, Typography, Button, Grid} from '@material-ui/core';
+import {Paper, Typography, Button, Grid, Box} from '@material-ui/core';
 import AddActivityModal from './AddActivityModal';
 import ActivityList from './ActivityList';
-import ActivityEdit from './ActivityEdit';
-import AddCircleIcon from '@material-ui/icons/Add';
+import Activity from './Activity';
 import Axios from 'axios'
 import { useRouteMatch } from "react-router-dom";
 
@@ -13,15 +12,19 @@ function CourseActivities() {
   const id = url.params.id;
 
   const [openModal, setOpenModal] = useState(false);
-  const [editActivity, setEditActivity] = useState(false);
+  const [singleActivity, setSingleActivity] = useState(false);
   const [clickedActivity, setClickedActivity] = useState({})
   const [activityData, setActivityData] = useState([])
 
   const contentControl = (activity) => {
-    setEditActivity(!editActivity)
+    setSingleActivity(true)
     setClickedActivity(activity)
     console.log(activity.activityorder)
   }
+
+  // const updateActivity = () => {
+  //   
+  // }
 
   const getActivities = (id) => {
     Axios.get('https://vottron.herokuapp.com/activities/:id', {
@@ -48,51 +51,23 @@ function CourseActivities() {
     <Paper 
     elevation={2}
     className="course-dashboard-paper">
-      <Grid
-      container
-      justify="space-between"
-      >
-        <Grid
-        item
-        >
-          <Typography 
-          className="dashboard-card-title" 
-          variant="h5"
-          color="primary"
-          >
-            Activities
-          </Typography>
-        </Grid>
-        <Grid
-        item
-        >
-          <Button
-          color="primary"
-          variant="contained"
-          onClick={handleOpen}
-          startIcon={<AddCircleIcon/>}
-          >
-            Add
-          </Button>
-        </Grid>
-      </Grid>
-
       <AddActivityModal
         openModal={openModal}
         handleClose={handleClose}
         activityData={activityData}
         getActivities={getActivities}
       />
-      {editActivity === true ?
-        <ActivityEdit
-        setEditActivity={setEditActivity}
+      {singleActivity === true ?
+        <Activity
         clickedActivity={clickedActivity}
         getActivities={getActivities}
+        setSingleActivity={setSingleActivity}
         />
         :
         <ActivityList 
         contentControl={contentControl}
         activityData={activityData}
+        handleOpen={handleOpen}
         />
       }
     </Paper>

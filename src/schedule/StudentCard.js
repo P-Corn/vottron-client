@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 		width: '100%'
 	},
 	icon: {
-		fontSize: 26,
+		fontSize: 25,
 		marginRight: '8px',
 	},
 	card: {
@@ -52,9 +52,9 @@ function StudentCard({name, course, id, history}) {
 							<Face className={classes.icon} color="primary"/>
 							{name}
 						</Typography>
-						<Box pt={.8}/>
+						<Box pt={.9}/>
 						<Divider variant="fullWidth"/>
-						<Box pb={1.1}/>
+						<Box pb={1.3}/>
 						<Typography className={classes.textContainer} color="textSecondary">
 							<Class className={classes.icon} color="primary"/>
 							{course}
