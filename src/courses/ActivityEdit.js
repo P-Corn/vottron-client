@@ -18,6 +18,17 @@ function ActivityEdit({currentActivity, getActivities, setEditActivity, setCurre
     const [courseId] = useState(currentActivity.courseid);
     const [activityOrder, setActivityOrder] = useState(currentActivity.activityorder);
 
+	const validate = {
+        check: (input, num) => (input.length >= num),
+        validateAll: function validateAll(...inputs) {
+            for(let input of inputs){
+                if(this.check(input[0], input[1]))
+                    return true;
+            }
+            return false;
+        }
+    }
+
 	const updateActivity = () => {
 		Axios.post('https://vottron.herokuapp.com/activities/update', {
 			activityId,
@@ -26,16 +37,28 @@ function ActivityEdit({currentActivity, getActivities, setEditActivity, setCurre
 			activitysolution,
 			activityOrder
 		}).then((res) => {
-			console.log(res)
 			getActivities(courseId)
-			setCurrentActivity({activitytitle, activitydescription, activitysolution})
 			setEditActivity(false)
+			Axios.post('https://vottron.herokuapp.com/studentactivities/update', {
+				activityId,
+				activitytitle,
+				activitydescription,
+				activitysolution,
+				activityOrder
+			}).then((res) => {
+				console.log(res)
+				setCurrentActivity({activitytitle, activitydescription, activitysolution})
+			})
 		})
 	  }
 
 	const submitData = (e) => {
 		e.preventDefault();
-		updateActivity();
+        if(validate.validateAll([activitytitle, 36], [activitydescription, 275], [activitysolution, 275]))
+            return;
+        else {
+            updateActivity();
+        }
 	}
 
   	return (
@@ -89,14 +112,16 @@ function ActivityEdit({currentActivity, getActivities, setEditActivity, setCurre
 					item
 					className="dashboard-details-container"
 					>
-						<Typography className="dashboard-label" variant="subtitle1">
-							<label id="course-title" value="Title">Title:</label>
-						</Typography>
+						{/* <Typography className="dashboard-label" variant="subtitle1">
+							<label id="course-title" value="Title">{`Title ${validate.check(activitytitle, 36) ? '(max 36 characters)' : ''}`}</label>
+						</Typography> */}
 
 						<TextField 
 						value={activitytitle}
+						label={`Title ${validate.check(activitytitle, 36) ? '(max 36 characters)' : ''}`}
 						variant="outlined"
 						fullWidth
+						error={validate.check(activitytitle, 36)}
 						onChange={(e) => setActivityTitle(e.target.value)}
 						>
 						</TextField>
@@ -105,14 +130,13 @@ function ActivityEdit({currentActivity, getActivities, setEditActivity, setCurre
 					item
 					className="dashboard-details-container"
 					>
-						<Typography className="dashboard-label" variant="subtitle1">
-							<label id="course-description" value="Course description">Instructions:</label>
-						</Typography>
 						<TextField 
 						value={activitydescription}
 						variant="outlined"
 						multiline
+						label={`Instructions ${validate.check(activitydescription, 255) ? '(max 255 characters)' : ''}`}
 						fullWidth
+						error={validate.check(activitydescription, 255)}
 						onChange={(e) => setActivityDesc(e.target.value)}
 						rows="3"
 						>
@@ -122,12 +146,11 @@ function ActivityEdit({currentActivity, getActivities, setEditActivity, setCurre
 					item
 					className="dashboard-details-container"
 					>
-						<Typography className="dashboard-label" variant="subtitle1">
-							<label id="course-solution" value="Course solution">Solution:</label>
-						</Typography>
 						<TextField 
 						value={activitysolution}
 						variant="outlined"
+						error={validate.check(activitysolution, 255)}
+						label={`Solution ${validate.check(activitysolution, 255) ? '(max 255 characters)' : ''}`}
 						multiline
 						fullWidth
 						onChange={(e) => setActivitySolution(e.target.value)}

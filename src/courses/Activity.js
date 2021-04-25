@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ActivityEdit from './ActivityEdit';
 import {Edit, ArrowBack} from '@material-ui/icons/';
 import Delete from '@material-ui/icons/Delete';
-import axios from 'axios';
+import Axios from 'axios';
 
 const useStyles = makeStyles({
 	flexItem: {
@@ -19,12 +19,18 @@ function Activity({clickedActivity, getActivities, setSingleActivity}) {
     const [currentActivity, setCurrentActivity] = useState(clickedActivity)
 
     const deleteActivity = () => {
-        axios.post('https://vottron.herokuapp.com/activities/delete', {
-            activityId: currentActivity.activityid
+        const activityId = currentActivity.activityid;
+        Axios.post('https://vottron.herokuapp.com/activities/delete', {
+            activityId,
         }).then((res) => {
-            console.log(res)
             getActivities(currentActivity.courseid)
             setSingleActivity(false)
+            Axios.post('https://vottron.herokuapp.com/studentactivities/delete', {
+                activityId,
+            }).then((res) => {
+                getActivities(currentActivity.courseid)
+                setSingleActivity(false)
+            })
         })
     }
 

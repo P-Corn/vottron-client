@@ -1,28 +1,68 @@
 import React, {useState} from 'react';
-import {Grid, Typography, Card, CardMedia, Paper, Button} from '@material-ui/core';
+import {Grid, Typography, Card, CardMedia, Paper, Button, Box} from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 
 function CourseInfo({courseTitle, courseDesc, courseImg, setEditCourse}) {
+
+
+  // <Grid
+  //       item
+  //       align="right"
+  //       >
+  //         <Button
+  //         variant="contained"
+  //         color="primary"
+  //         onClick={() => setEditCourse(true)}
+  //         startIcon={<CreateIcon></CreateIcon>}
+  //         >
+  //         Edit
+  //         </Button>
+  //       </Grid>
 
   return (
     <Paper
       className="course-dashboard-paper"
       elevation={2}
     >
-      <Typography 
-      className="dashboard-card-title" 
-      variant="h5"
-      color="primary"
-      >
-        Information
-      </Typography>
+      <Grid
+			container
+			justify="space-between"
+			>
+				<Grid alignItems="center" xs={6} container item>
+					<Grid
+					item
+					>
+						<Typography 
+						className="dashboard-card-title" 
+						variant="h5"
+						color="primary"
+						>
+						Information
+						</Typography>
+					</Grid>
+				</Grid>
+        <Grid item>
+          <Button
+          color="primary"
+          variant="contained"
+          startIcon={<CreateIcon/>}
+          onClick={() => setEditCourse(true)}
+          type="submit"
+          >
+            Edit
+          </Button>
+        </Grid>
+		  </Grid>
+
+      <Box pb={2} />
+
       <Grid direction="column" container>
         <Grid 
         item
         className="dashboard-details-container"
         >
-          <Typography className="dashboard-label" variant="subtitle2">
-              Title:
+          <Typography color="primary" className="dashboard-label" variant="subtitle1">
+              Title
           </Typography>
           <Typography variant="h6">
               {courseTitle}
@@ -32,8 +72,8 @@ function CourseInfo({courseTitle, courseDesc, courseImg, setEditCourse}) {
         item
         className="dashboard-details-container"
         >
-          <Typography className="dashboard-label" variant="subtitle2">
-              Description:
+          <Typography color="primary" className="dashboard-label" variant="subtitle1">
+              Description
           </Typography>
           <Typography variant="h6">
               {courseDesc}
@@ -41,31 +81,18 @@ function CourseInfo({courseTitle, courseDesc, courseImg, setEditCourse}) {
         </Grid>
         <Grid 
         item
-        sm={8}
-        md={10}
+        sm={9}
+        md={12}
         className="dashboard-details-container"
         >
-          <Typography className="dashboard-label__img" variant="subtitle2">Image:</Typography>
+          <Typography color="primary" className="dashboard-label__img" variant="subtitle1">Image</Typography>
           <Card>
               <CardMedia
               component="img"
               image={courseImg}
-              height="230"
+              height="250"
               />
           </Card>
-        </Grid>
-        <Grid
-        item
-        align="right"
-        >
-          <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setEditCourse(true)}
-          startIcon={<CreateIcon></CreateIcon>}
-          >
-          Edit
-          </Button>
         </Grid>
       </Grid>
     </Paper>

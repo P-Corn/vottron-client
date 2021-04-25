@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {Grid, Typography, Card, CardMedia, Paper, Button, TextField} from '@material-ui/core';
+import {Grid, Typography, Box, Paper, Button, TextField, IconButton} from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
-import CancelIcon from '@material-ui/icons/Cancel';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import Axios from 'axios';
 
 function CourseInfoEdit({title, desc, img, setEditCourse, getCourseDetails, id}) {
@@ -10,6 +10,17 @@ function CourseInfoEdit({title, desc, img, setEditCourse, getCourseDetails, id})
 	const [courseTitle, setCourseTitle] = useState(title);
     const [courseDesc, setCourseDesc] = useState(desc);
     const [courseImg, setCourseImg] = useState(img);
+
+	const validate = {
+        check: (input, num) => (input.length >= num),
+        validateAll: function validateAll(...inputs) {
+            for(let input of inputs){
+                if(this.check(input[0], input[1]))
+                    return true;
+            }
+            return false;
+        }
+    }
 
 	const updateCourse = (id) => {
 		Axios.post('https://vottron.herokuapp.com/courses/update', {
@@ -20,21 +31,28 @@ function CourseInfoEdit({title, desc, img, setEditCourse, getCourseDetails, id})
 		})
 		.then(() => {
 			getCourseDetails(id);
-			Axios.post('https://vottron.herokuapp.com/studentcourses/update/', {
+			Axios.post('https://vottron.herokuapp.com/studentcourse/update', {
 				courseId,
 				courseTitle,
 				courseDesc,
 				courseImg,
 			})
-			.then((res) => {
-				console.log(res)
+			.then(() => {
+				Axios.post('https://vottron.herokuapp.com/students/course', {
+					courseTitle,
+					title
+				}).then((res) => console.log(res))
 			})
 		})
 	}
 
 	const handleSubmit = (e) => {
-		updateCourse(id);
-		setEditCourse(false);
+		if(validate.validateAll([courseTitle, 36], [courseDesc, 90]))
+			return
+		else {
+			setEditCourse(false);
+			updateCourse(id);
+		}
 		e.preventDefault();
 	}
 
@@ -43,13 +61,65 @@ function CourseInfoEdit({title, desc, img, setEditCourse, getCourseDetails, id})
 	className="course-dashboard-paper"
 	elevation={4}
 	>
-		<Typography
-		className="dashboard-card-title"
-		color="primary" 
-		variant="h5"
-		>
-			Information
-		</Typography>
+		{/* <Grid alignItems="center" xs={6} container item>
+			<Grid item>
+				<IconButton
+					color="primary"
+					onClick={() => setEditCourse(false)}
+				>
+					<ArrowBack/>
+				</IconButton>
+			</Grid>
+			<Grid
+			item
+			>
+				<Typography 
+				className="dashboard-card-title" 
+				variant="h5"
+				color="primary"
+				>
+				Edit
+				</Typography>
+			</Grid>
+		</Grid> */}
+		<Grid
+			container
+			justify="space-between"
+			>
+				<Grid alignItems="center" xs={6} container item>
+					<Grid item>
+						<IconButton
+							color="primary"
+							onClick={() => setEditCourse(false)}
+						>
+							<ArrowBack/>
+						</IconButton>
+					</Grid>
+					<Grid
+					item
+					>
+						<Typography 
+						className="dashboard-card-title" 
+						variant="h5"
+						color="primary"
+						>
+						Edit
+						</Typography>
+					</Grid>
+				</Grid>
+			<Grid item>
+				<Button
+				color="primary"
+				variant="contained"
+				startIcon={<SaveIcon/>}
+				type="submit"
+				onClick={(e) => handleSubmit(e)}
+				>
+					Save
+				</Button>
+			</Grid>
+		</Grid>
+		<Box pb={2} />
 		<form
 			onSubmit={handleSubmit}
 		>
@@ -61,14 +131,12 @@ function CourseInfoEdit({title, desc, img, setEditCourse, getCourseDetails, id})
 				item
 				className="dashboard-details-container"
 				>
-					<Typography className="dashboard-label" variant="subtitle1">
-						<label id="course-title" value="Title">Title:</label>
-					</Typography>
-
 					<TextField 
 					value={courseTitle}
 					variant="outlined"
+					label={`Title ${validate.check(courseTitle, 36) ? '(max 36 characters)' : ''}`}
 					fullWidth
+					error={validate.check(courseTitle, 36)}
 					onChange={(e) => setCourseTitle(e.target.value)}
 					>
 					</TextField>
@@ -77,66 +145,31 @@ function CourseInfoEdit({title, desc, img, setEditCourse, getCourseDetails, id})
 				item
 				className="dashboard-details-container"
 				>
-					<Typography className="dashboard-label" variant="subtitle1">
-						<label id="course-description" value="Course description">Description:</label>
-					</Typography>
 					<TextField 
 					value={courseDesc}
 					variant="outlined"
+					label={`Description ${validate.check(courseDesc, 90) ? '(max 90 characters)' : ''}`}
 					multiline
 					fullWidth
+					error={validate.check(courseDesc, 90)}
 					onChange={(e) => setCourseDesc(e.target.value)}
-					rows="2"
+					rows="4"
 					>
 					</TextField>
 				</Grid>
 				<Grid 
 				item
-				sm={9}
 				className="dashboard-details-container"
 				>
-					<Typography className="dashboard-label__img" variant="subtitle1">Image:</Typography>
 					<TextField 
 					value={courseImg}
 					variant="outlined"
+					label="Image"
 					fullWidth
 					onChange={(e) => setCourseImg(e.target.value)}
 					/>
 				</Grid>
-				<Grid
-				item
-				container
-				justify="flex-end"
-				spacing={2}
-				>
-					<Grid
-					item
-					// className="cancel-button"
-					>
-						<Button
-						variant="outlined"
-						color="secondary"
-						onClick={() => {setEditCourse(false)}}
-						startIcon={<CancelIcon></CancelIcon>}
-						>
-							Cancel
-						</Button>
-					</Grid>
-					<Grid
-					item
-					>
-						<Button
-						variant="contained"
-						color="primary"
-						type="submit"
-						value="submit"
-						startIcon={<SaveIcon></SaveIcon>}
-						>
-							Save
-						</Button>
-					</Grid>
-				</Grid>
-      	</Grid>
+      		</Grid>
     	</form>
    </Paper>
 	);

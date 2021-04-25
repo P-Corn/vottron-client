@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Container, Typography, Paper, Grid, IconButton} from '@material-ui/core';
+import {Container, Typography, Box, Grid, IconButton} from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Axios from 'axios';
 import {withRouter} from 'react-router-dom';
@@ -51,7 +51,7 @@ function StudentDashboard({history}) {
               Student Settings
             </Typography>
           </Grid>
-          <hr></hr>
+          <Box pb={3}/>
 					<Grid
           container
           justify="center"
@@ -60,7 +60,7 @@ function StudentDashboard({history}) {
             item
             xs={12}
             sm={9}
-            md={6}
+            md={5}
             >
               {editStudent === true ?
                 <StudentInfoEdit

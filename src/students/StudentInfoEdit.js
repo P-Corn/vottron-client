@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Grid, Typography, Box, Paper, Button, TextField, MenuItem} from '@material-ui/core';
+import {Grid, Typography, Box, Paper, Button, TextField, MenuItem, IconButton} from '@material-ui/core';
 import {Create, Close, Check} from '@material-ui/icons';
+import Save from '@material-ui/icons/Save';
 import Axios from 'axios';
+import {ArrowBack} from '@material-ui/icons/';
 
 function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, setEditStudent, getStudentDetails}) {
 
@@ -18,6 +20,17 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
     const [dobVal, setDob] = useState(dob);
     const [notesVal, setNotes] = useState(notes);
 	const [courses, setCourses] = useState([]);
+
+	const validate = {
+        check: (input, num) => (input.length >= num),
+        validateAll: function validateAll(...inputs) {
+            for(let input of inputs){
+                if(this.check(input[0], input[1]))
+                    return true;
+            }
+            return false;
+        }
+    }
 	
 	const activeChoices = [
 		"Yes",
@@ -49,9 +62,19 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
 	}
 
 	const handleSubmit = (e) => {
-		updateCourse();
-		setEditStudent(false);
 		e.preventDefault();
+		if(validate.validateAll(
+			[firstNameVal, 19], 
+			[lastNameVal, 19], 
+			[month, 3],
+			[day, 3],
+			[year, 5]))
+		{
+			return
+		} else {
+			updateCourse();
+			setEditStudent(false);
+		}
 	}
 
   	return (
@@ -60,8 +83,49 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
 		elevation={2}
 		>
 			<form onSubmit={handleSubmit}>
-				<Grid direction="row" alignItems="flex-end" container spacing={4}>
+				<Grid
+				container
+				justify="space-between"
+				>
+					<Grid alignItems="center" xs={6} container item>
+						<Grid item>
+							<IconButton
+								color="primary"
+								onClick={() => setEditStudent(false)}
+							>
+								<ArrowBack/>
+							</IconButton>
+						</Grid>
+						<Grid
+						item
+						>
+							<Typography 
+							className="dashboard-card-title" 
+							variant="h5"
+							color="primary"
+							>
+							Edit
+							</Typography>
+						</Grid>
+					</Grid>
 					<Grid
+					item
+					
+					>
+						<Button
+						color="primary"
+						variant="contained"
+						startIcon={<Save/>}
+						type="submit"
+						onClick={(e) => handleSubmit(e)}
+						>
+							Save
+						</Button>
+					</Grid>
+				</Grid>
+				<Box pb={3}/>
+				<Grid direction="row" alignItems="flex-end" container spacing={4}>
+					{/* <Grid
 					item container
 					alignItems="center"
 					justify="space-between"
@@ -69,7 +133,7 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
 					>
 						<Grid
 						item
-						lg={6}
+						lg={4}
 						>
 							<Typography variant="h5" color="primary">
 								Information
@@ -78,7 +142,7 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
 						<Grid
 						item
 						align="right"
-						lg={6}
+						lg={8}
 						>
 							<Button
 							variant="outlined"
@@ -99,7 +163,7 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
 							Save
 							</Button>
 						</Grid>
-					</Grid>
+					</Grid> */}
 
 					<Grid 
 					item
@@ -107,32 +171,13 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
 					sm={6}
         			xs={12}
 					>
-						<Typography className="dashboard-label" variant="subtitle2">
-								First name:
-						</Typography>
-						<Box>
-							<TextField
-							fullWidth
-							value={firstNameVal}
-							onChange={(e) => setFirstName(e.target.value)}
-							/>
-						</Box>
-						
-					</Grid>
-
-					<Grid 
-					item
-					className="dashboard-details-container"
-					sm={6}
-        			xs={12}
-					>
-						<Typography className="dashboard-label" variant="subtitle2">
-								Last name:
-						</Typography>
 						<TextField
-							fullWidth
-							value={lastNameVal}
-							onChange={(e) => setLastName(e.target.value)}
+						fullWidth
+						label={`First name ${validate.check(firstNameVal, 19) ? '(max 18 characters)' : ''}`}
+						value={firstNameVal}
+						onChange={(e) => setFirstName(e.target.value)}
+						error={validate.check(firstNameVal, 19)}
+						required
 						/>
 					</Grid>
 
@@ -142,15 +187,30 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
 					sm={6}
         			xs={12}
 					>
-						<Typography className="dashboard-label" variant="subtitle2">
-							Course:
-						</Typography>
+						<TextField
+							fullWidth
+							label={`Last name ${validate.check(lastNameVal, 19) ? '(max 18 characters)' : ''}`}
+							value={lastNameVal}
+							error={validate.check(lastNameVal, 19)}
+							onChange={(e) => setLastName(e.target.value)}
+							required
+						/>
+					</Grid>
+
+					<Grid 
+					item
+					className="dashboard-details-container"
+					sm={6}
+        			xs={12}
+					>
 						<TextField
 							select
 							id="Course"
+							label="Course"
 							fullWidth
 							value={courseVal}
 							onChange={(e) => setCourse(e.target.value)}
+							required
 						>
 							{courses.map((course) => (
 								<MenuItem 
@@ -178,6 +238,7 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
 							label="MM"
 							onChange={(e) => setMonth(e.target.value)}
 							className="dob-field"
+							error={validate.check(month, 3)}
 						/>
 						<Box display="inline" mr={2}></Box>
 						<TextField
@@ -185,6 +246,7 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
 							label="DD"
 							onChange={(e) => setDay(e.target.value)}
 							className="dob-field"
+							error={validate.check(day, 3)}
 						/>
 						<Box display="inline" mr={2}></Box>
 						<TextField
@@ -192,6 +254,7 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
 							label="YYYY"
 							onChange={(e) => setYear(e.target.value)}
 							className="dob-field"
+							error={validate.check(year, 5)}
 						/>
 					</Grid>
 
@@ -201,14 +264,12 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
 					sm={6}
         			xs={12}
 					>
-						<Typography className="dashboard-label" variant="subtitle2">
-							Active:
-						</Typography>
 						<TextField
 							fullWidth
 							select
 							value={activeVal}
 							onChange={(e) => setActive(e.target.value)}
+							label="Active"
 						>
 							{activeChoices.map((choice) => (
 								<MenuItem 
@@ -222,7 +283,7 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
 						</TextField>
 					</Grid>
 
-					<Grid 
+					{/* <Grid 
 					item
 					className="dashboard-details-container"
 					sm={6}
@@ -238,7 +299,7 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
 							rows={2}
 							onChange={(e) => setNotes(e.target.value)}
 						/>
-					</Grid>
+					</Grid> */}
 					
 				</Grid>
 			</form>  

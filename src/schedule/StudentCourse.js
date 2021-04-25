@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Container, Grid, Typography, Box, Paper, Button} from '@material-ui/core';
+import {Container, Grid, Typography, Box, Paper, Button, IconButton} from '@material-ui/core';
 import Axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles';
 import { useRouteMatch } from "react-router-dom";
@@ -53,6 +53,7 @@ function StudentCourse({history}) {
 			}
     }).then((response) => {
       setCourseData({...response.data[0]});
+      console.log(response)
     })
   }
 
@@ -62,8 +63,8 @@ function StudentCourse({history}) {
 					id
 			}
     }).then((response) => {
-		console.log(response)
-      	setActivityData([...response.data]);
+		  console.log(response)
+      setActivityData([...response.data]);
     })
   }
 
@@ -94,6 +95,22 @@ function StudentCourse({history}) {
         <Container
           maxWidth="lg"
         >
+          <Grid 
+            justify="flex-start" 
+            alignItems="center" 
+            container
+          >
+            <IconButton
+            color="primary"
+            onClick={() => history.replace('/schedule')}
+            >
+              <ArrowBackIcon fontSize="large"/>
+            </IconButton>
+            <Typography variant="h5">
+              Go back
+            </Typography>
+          </Grid>
+          <Box pb={3}/>
           <Grid
 					container
 					spacing={5}
@@ -114,7 +131,7 @@ function StudentCourse({history}) {
                     </Typography>
                     <hr></hr>
                     <Box pb={1}/>
-                    <Typography variant="h4">
+                    <Typography variant="h5">
                       {`${studentData.firstname} ${studentData.lastname}`}
                     </Typography>
                   </Grid>

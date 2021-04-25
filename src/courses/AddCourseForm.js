@@ -6,13 +6,24 @@ import Axios from 'axios';
 function AddCourseForm({handleClose}) {
 
     const createId = () => {
-        return Math.floor(Math.random() * 1000);
+        return Math.floor(Math.random() * 999999);
     }
 
     const [courseId, setCourseId] = useState(createId);
     const [courseTitle, setCourseTitle] = useState("");
     const [courseDesc, setCourseDesc] = useState("");
     const [courseImg, setCourseImg] = useState("");
+
+    const validate = {
+        check: (input, num) => (input.length >= num),
+        validateAll: function validateAll(...inputs) {
+            for(let input of inputs){
+                if(this.check(input[0], input[1]))
+                    return true;
+            }
+            return false;
+        }
+    }
 
     const addCourse = () => {
         Axios.post('https://vottron.herokuapp.com/courses', {
@@ -24,9 +35,13 @@ function AddCourseForm({handleClose}) {
     }
 
     const handleSubmit = (e) => {
-        handleClose();
-        addCourse();
-        // e.preventDefault();
+        if(validate.validateAll([courseTitle, 36], [courseDesc, 90])) {
+            return;
+        }
+        else {
+            handleClose();
+            addCourse();
+        }
     }
 
   return (
@@ -51,9 +66,10 @@ function AddCourseForm({handleClose}) {
                     <TextField 
                      fullWidth={true} 
                      id="Course title" 
-                     label="Course title" 
+                     label={`Title ${validate.check(courseTitle, 36) ? '(max 36 characters)' : ''}`}
                      value={courseTitle}
                      onChange={(e) => setCourseTitle(e.target.value)}
+                     error={validate.check(courseTitle, 36)}
                     />
                 </Grid>
             </Grid>
@@ -68,9 +84,10 @@ function AddCourseForm({handleClose}) {
                         rows={4}
                         fullWidth={true} 
                         id="Description" 
-                        label="Course description"
+                        label={`Description ${validate.check(courseDesc, 90) ? '(max 90 characters)' : ''}`}
                         value={courseDesc}
                         onChange={(e) => setCourseDesc(e.target.value)}
+                        error={validate.check(courseDesc, 90)}
                     />
                 </Grid>
             </Grid>
@@ -84,7 +101,7 @@ function AddCourseForm({handleClose}) {
                     <TextField 
                      fullWidth={true} 
                      id="Course image" 
-                     label="Course image" 
+                     label="Image" 
                      value={courseImg}
                      onChange={(e) => setCourseImg(e.target.value)}
                     />

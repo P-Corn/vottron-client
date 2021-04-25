@@ -13,7 +13,6 @@ function CourseCard({courseId, courseTitle, courseDesc, courseImg, history}) {
                 component="img"
                 height="190"
                 image={courseImg}
-                title="Contemplative Reptile"
             />
             <CardContent className="card-content">
                 <Typography gutterBottom variant="h5" component="h2">

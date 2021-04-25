@@ -17,6 +17,17 @@ function StudentNotes({studentId, commentDate, commentText}) {
 	const [date, setDate] = useState();
 	const [newComment, setNewComment] = useState("");
 
+	const validate = {
+        check: (input, num) => (input.length >= num),
+        validateAll: function validateAll(...inputs) {
+            for(let input of inputs){
+                if(this.check(input[0], input[1]))
+                    return true;
+            }
+            return false;
+        }
+    }
+
 	const addComment = (newDate) => {
 		Axios.post('https://vottron.herokuapp.com/studentcomments', {
 			studentId,
@@ -45,6 +56,8 @@ function StudentNotes({studentId, commentDate, commentText}) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		if(validate.validateAll([newComment, 255]))
+			return
 		createDate();
 	}
 
@@ -70,6 +83,8 @@ function StudentNotes({studentId, commentDate, commentText}) {
 				rows="4"
 				value={newComment}
 				onChange={(e) => setNewComment(e.target.value)}
+				label={`New comment ${validate.check(newComment, 255) ? '(max 255 characters)' : ''}`}
+				error={validate.check(newComment, 255)}
 				/>
 				<Box py={1}/>
 				<Button

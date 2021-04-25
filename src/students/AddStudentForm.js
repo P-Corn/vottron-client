@@ -25,6 +25,17 @@ function AddStudentForm({courseData, handleClose, getStudents}) {
     const [weekDay, setWeekDay] = useState("")
     const [weekDays] = useState(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]);
 
+    const validate = {
+        check: (input, num) => (input.length >= num),
+        validateAll: function validateAll(...inputs) {
+            for(let input of inputs){
+                if(this.check(input[0], input[1]))
+                    return true;
+            }
+            return false;
+        }
+    }
+
     const addStudent = (dob, {courseid, coursetitle, coursedescription, courseimage}, enrollDate) => {
         Axios.post('https://vottron.herokuapp.com/students', {
             studentId,
@@ -83,8 +94,19 @@ function AddStudentForm({courseData, handleClose, getStudents}) {
 
     const handleSubmit = (e, courseChoice) => {
         e.preventDefault();
-        const dob = `${month}/${day}/${year}`;
-        createDate(dob, courseChoice);
+        if(validate.validateAll(
+           [firstName, 19], 
+           [lastName, 19], 
+           [month, 3],
+           [day, 3],
+           [year, 5])) 
+           {
+                return
+           }
+        else {
+            const dob = `${month}/${day}/${year}`;
+            createDate(dob, courseChoice);
+        }
     }
 
   return (
@@ -108,25 +130,27 @@ function AddStudentForm({courseData, handleClose, getStudents}) {
                 <Grid xs={12} sm={6} item>
                     <TextField 
                      fullWidth={true} 
-                     id="First name" 
-                     label="First name" 
+                     id="First name"
+                     label={`First name ${validate.check(firstName, 19) ? '(max 18 characters)' : ''}`}
                      value={firstName}
                      onChange={(e) => setFirstName(e.target.value)}
+                     error={validate.check(firstName, 19)}
                      required
                     />
                 </Grid>
                 <Grid xs={12} sm={6} item>
                     <TextField 
                      fullWidth={true} 
-                     id="Last name" 
-                     label="Last name"
+                     id="Last name"
+                     label={`Last name ${validate.check(lastName, 19) ? '(max 18 characters)' : ''}`}
                      value={lastName}
+                     error={validate.check(lastName, 19)}
                      onChange={(e) => setLastName(e.target.value)}
                      required
                      />
                 </Grid>
             </Grid>
-            <Grid 
+            {/* <Grid 
              container
              spacing={4}
              className="form-row"
@@ -142,7 +166,7 @@ function AddStudentForm({courseData, handleClose, getStudents}) {
                         onChange={(e) => setAdminNotes(e.target.value)}
                     />
                 </Grid>
-            </Grid>
+            </Grid> */}
             <Grid 
              container
              justify="space-between"
@@ -180,6 +204,9 @@ function AddStudentForm({courseData, handleClose, getStudents}) {
 							label="MM"
 							onChange={(e) => setMonth(e.target.value)}
 							className="dob-field"
+                            type="number"
+                            inputmode="numeric"
+                            error={validate.check(month, 3)}
 						/>
 						<Box display="inline" mr={2}></Box>
 						<TextField
@@ -187,6 +214,9 @@ function AddStudentForm({courseData, handleClose, getStudents}) {
 							label="DD"
 							onChange={(e) => setDay(e.target.value)}
 							className="dob-field"
+                            type="number"
+                            inputmode="numeric"
+                            error={validate.check(day, 3)}
 						/>
 						<Box display="inline" mr={2}></Box>
 						<TextField
@@ -194,6 +224,9 @@ function AddStudentForm({courseData, handleClose, getStudents}) {
 							label="YYYY"
 							onChange={(e) => setYear(e.target.value)}
 							className="dob-field"
+                            type="number"
+                            inputmode="numeric"
+                            error={validate.check(year, 5)}
 						/>
                 </Grid>
             </Grid>

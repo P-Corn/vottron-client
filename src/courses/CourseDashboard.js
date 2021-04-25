@@ -50,7 +50,6 @@ function CourseDashboard({history}) {
               Course Settings
             </Typography>
           </Grid>
-          <hr></hr>
           <Grid
             container
             spacing={6}

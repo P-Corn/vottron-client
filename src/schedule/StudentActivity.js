@@ -13,50 +13,38 @@ function StudentActivity({data}) {
 
   return (
     <div>
-			<Grid
+		<Grid
 			container
 			direction="column"
 			>
 				<Grid item>
+					<Typography color="primary" variant="subtitle1">
+						Title
+					</Typography>
 					<Typography gutterBottom variant="h5">
 						{data.activitytitle}
 					</Typography>
 				</Grid>
+				<Box pt={2} pb={3}>
+					<Divider/>
+				</Box>
 				<Grid item>
-					<Typography variant="body1">
+					<Typography color="primary" variant="subtitle1">
+						Instructions
+					</Typography>
+					<Typography variant="h6">
 						{data.activitydescription}
 					</Typography>
 				</Grid>
-			</Grid>
-
-			<Box pt={2} pb={3}>
-				<Divider/>
-			</Box>
-
-			<Grid
-			container
-			direction="row"
-			justify="space-evenly"
-			>
-				<Grid md={5} item>
-					<Typography color="primary" gutterBottom variant="h6">
-						Steps to completion
-					</Typography>
-					<Typography variant="body1">
-						<li>1. Write the program and what not</li>
-						<li>2. Do the testing on the program</li>
-						<li>3. Do the testing on the program</li>
-					</Typography>
-				</Grid>
-
-				<Divider flexItem orientation="vertical"/>
-
-				<Grid md={5} item>
-					<Typography color="primary" gutterBottom variant="h6">
+				<Box pt={2} pb={3}>
+					<Divider/>
+				</Box>
+				<Grid item>
+					<Typography color="primary" variant="subtitle1">
 						Solution
 					</Typography>
-					<Typography variant="body1">
-						Here's the solution to the activity
+					<Typography variant="h6">
+						{data.activitysolution}
 					</Typography>
 				</Grid>
 			</Grid>

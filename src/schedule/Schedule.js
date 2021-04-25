@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Container, Grid, Typography, Button, Box} from '@material-ui/core';
 import StudentCard from './StudentCard';
+import ScheduleSkeleton from './ScheduleSkeleton'
 import Axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -17,6 +18,7 @@ function Schedule() {
   const classes = useStyles();
 
   const [students, setStudents] = useState([])
+  const [skeleton, setSkeleton] = useState(true)
   // const [monday, setMonday] = useState([])
   // const [tuesday, setTuesday] = useState([])
   // const [wednesday, setWednesday] = useState([])
@@ -27,6 +29,7 @@ function Schedule() {
     Axios.get("https://vottron.herokuapp.com/students").then((response) => {
       console.log(response)
       setStudents([...response.data]);
+      setSkeleton(false)
     })
   }
 
@@ -65,7 +68,8 @@ function Schedule() {
           spacing={7}
           className={classes.section}
           >
-            {students.filter(student => student.weekday == "Monday").map(filteredStudent => (
+            {skeleton === false ?
+            students.filter(student => student.weekday == "Monday").map(filteredStudent => (
               <Grid
               item
               xs={12}
@@ -78,7 +82,16 @@ function Schedule() {
                 course={filteredStudent.course}
                 />
               </Grid>
-            ))}
+            ))
+            :
+            <Grid
+              item
+              xs={12}
+              md={4}
+            >
+              <ScheduleSkeleton />
+            </Grid>
+          }
           </Grid>
           <Typography variant="h6" color="textSecondary">
             Tuesday
@@ -89,7 +102,8 @@ function Schedule() {
           spacing={5}
           className={classes.section}
           >
-            {students.filter(student => student.weekday == "Tuesday").map(filteredStudent => (
+            {skeleton === false ?
+            students.filter(student => student.weekday == "Tuesday").map(filteredStudent => (
               <Grid
               item
               xs={12}
@@ -102,7 +116,16 @@ function Schedule() {
                 course={filteredStudent.course}
                 />
               </Grid>
-            ))}
+            ))
+            :
+            <Grid
+              item
+              xs={12}
+              md={4}
+            >
+              <ScheduleSkeleton />
+            </Grid>
+          }
           </Grid>
           <Typography variant="h6" color="textSecondary">
             Wednesday
@@ -113,7 +136,8 @@ function Schedule() {
           spacing={5}
           className={classes.section}
           >
-            {students.filter(student => student.weekday == "Wednesday").map(filteredStudent => (
+            {skeleton === false ?
+            students.filter(student => student.weekday == "Wednesday").map(filteredStudent => (
               <Grid
               item
               xs={12}
@@ -126,7 +150,16 @@ function Schedule() {
                 course={filteredStudent.course}
                 />
               </Grid>
-            ))}
+            ))
+            :
+            <Grid
+              item
+              xs={12}
+              md={4}
+            >
+              <ScheduleSkeleton />
+            </Grid>
+          }
           </Grid>
           <Typography variant="h6" color="textSecondary">
             Thursday
@@ -137,7 +170,8 @@ function Schedule() {
           spacing={5}
           className={classes.section}
           >
-            {students.filter(student => student.weekday == "Thursday").map(filteredStudent => (
+            {skeleton === false ?
+            students.filter(student => student.weekday == "Thursday").map(filteredStudent => (
               <Grid
               item
               xs={12}
@@ -150,7 +184,16 @@ function Schedule() {
                 course={filteredStudent.course}
                 />
               </Grid>
-            ))}
+            ))
+            :
+            <Grid
+              item
+              xs={12}
+              md={4}
+            >
+              <ScheduleSkeleton />
+            </Grid>
+          }
           </Grid>
           <Typography variant="h6" color="textSecondary">
             Friday
@@ -161,7 +204,8 @@ function Schedule() {
           spacing={5}
           className={classes.section}
           >
-            {students.filter(student => student.weekday == "Friday").map(filteredStudent => (
+            {skeleton === false ?
+            students.filter(student => student.weekday == "Friday").map(filteredStudent => (
               <Grid
               item
               xs={12}
@@ -174,7 +218,16 @@ function Schedule() {
                 course={filteredStudent.course}
                 />
               </Grid>
-            ))}
+            ))
+            :
+            <Grid
+              item
+              xs={12}
+              md={4}
+            >
+              <ScheduleSkeleton />
+            </Grid>
+          }
           </Grid>
           
         </Container>

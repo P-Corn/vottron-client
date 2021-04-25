@@ -2,8 +2,18 @@ import React, {useState, useEffect} from 'react';
 import {Grid, Typography, Box, Paper, Button} from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import Axios from 'axios';
+import Delete from '@material-ui/icons/Delete';
+import {withRouter} from 'react-router-dom';
 
-function StudentInfo({firstName, lastName, id, course, active, dob, notes, setEditStudent}) {
+function StudentInfo({firstName, lastName, id, course, active, dob, notes, setEditStudent, history}) {
+
+  const deleteStudent = () => {
+    Axios.post('https://vottron.herokuapp.com/students/delete', {
+        id,
+    }).then(() => {
+        history.replace('/students')
+    })
+  }
 
   return (
     <Paper
@@ -27,7 +37,7 @@ function StudentInfo({firstName, lastName, id, course, active, dob, notes, setEd
         >
           <Grid
           item
-          lg={6}
+          lg={4}
           >
             <Typography variant="h5" color="primary">
               Information
@@ -36,8 +46,17 @@ function StudentInfo({firstName, lastName, id, course, active, dob, notes, setEd
           <Grid
           item
           align="right"
-          lg={6}
+          lg={8}
           >
+            <Button
+            color="secondary"
+            variant="outlined"
+            onClick={() => deleteStudent()}
+            startIcon={<Delete/>}
+            >
+                Delete
+            </Button>
+            <Box px={1} component="span"/>
             <Button
             variant="contained"
             color="primary"
@@ -55,7 +74,7 @@ function StudentInfo({firstName, lastName, id, course, active, dob, notes, setEd
         sm={6}
         xs={12}
         >
-          <Typography className="dashboard-label" variant="subtitle2">
+          <Typography color="primary" className="dashboard-label" variant="subtitle2">
               First name:
           </Typography>
           <Box>
@@ -72,7 +91,7 @@ function StudentInfo({firstName, lastName, id, course, active, dob, notes, setEd
         sm={6}
         xs={12}
         >
-          <Typography className="dashboard-label" variant="subtitle2">
+          <Typography color="primary" className="dashboard-label" variant="subtitle2">
               Last name:
           </Typography>
           <Typography variant="h6">
@@ -86,7 +105,7 @@ function StudentInfo({firstName, lastName, id, course, active, dob, notes, setEd
         sm={6}
         xs={12}
         >
-          <Typography className="dashboard-label" variant="subtitle2">
+          <Typography color="primary" className="dashboard-label" variant="subtitle2">
             Course:
           </Typography>
           <Typography fontWeight="fontWeightBold" variant="h6">
@@ -100,7 +119,7 @@ function StudentInfo({firstName, lastName, id, course, active, dob, notes, setEd
         sm={6}
         xs={12}
         >
-          <Typography className="dashboard-label" variant="subtitle2">
+          <Typography color="primary" className="dashboard-label" variant="subtitle2">
             DOB:
           </Typography>
           <Typography fontWeight="fontWeightBold" variant="h6">
@@ -114,7 +133,7 @@ function StudentInfo({firstName, lastName, id, course, active, dob, notes, setEd
         sm={6}
         xs={12}
         >
-          <Typography className="dashboard-label" variant="subtitle2">
+          <Typography color="primary" className="dashboard-label" variant="subtitle2">
             Active:
           </Typography>
           <Typography fontWeight="fontWeightBold" variant="h6">
@@ -122,7 +141,7 @@ function StudentInfo({firstName, lastName, id, course, active, dob, notes, setEd
           </Typography>
         </Grid>
 
-        <Grid 
+        {/* <Grid 
         item
         className="dashboard-details-container"
         sm={6}
@@ -134,11 +153,11 @@ function StudentInfo({firstName, lastName, id, course, active, dob, notes, setEd
           <Typography fontWeight="fontWeightBold" variant="h6">
             {notes}
           </Typography>
-        </Grid>
+        </Grid> */}
         
       </Grid>  
     </Paper>
   );
 }
 
-export default StudentInfo;
+export default withRouter(StudentInfo);
