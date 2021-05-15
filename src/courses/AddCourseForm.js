@@ -101,7 +101,7 @@ function AddCourseForm({handleClose}) {
                     <TextField 
                      fullWidth={true} 
                      id="Course image" 
-                     label="Image" 
+                     label="Image URL" 
                      value={courseImg}
                      onChange={(e) => setCourseImg(e.target.value)}
                     />

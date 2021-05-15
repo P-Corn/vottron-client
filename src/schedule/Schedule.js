@@ -51,12 +51,6 @@ function Schedule() {
             <Typography gutterBottom variant="h4">
               Schedule
             </Typography>
-            <Button
-            variant="contained"
-            color="primary"
-            >
-              Change View
-            </Button>
           </Grid>
           <Box pb={3}/>
           <Typography variant="h6" color="textSecondary">

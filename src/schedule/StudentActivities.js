@@ -19,7 +19,11 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: "#1f287a",
 	},
 	listItem: {
-		paddingLeft: 16,
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: '0px'
+    },
+		paddingLeft: '4px',
+    paddingRight: 0,
 	}
 }));
 
@@ -39,7 +43,8 @@ export default function StudentActivities({activityData, handleActivity}) {
                 </ListItemAvatar>
                 <ListItemText 
                 primary={activityData[index].activitytitle} 
-                secondary={activityData[index].activitydescription}
+                // secondary={activityData[index].activitydescription}
+                secondary={activityData[index].activitydescription.slice(10) + '...'}
                 />
                 <Arrow color="primary"/>
             </ListItem>

@@ -3,12 +3,26 @@ import './Students.css'
 import AddIcon from '@material-ui/icons/Add';
 import {Container, Typography, Button, Grid, Icon} from '@material-ui/core'
 import StudentsTable from './StudentsTable';
+import StudentsListMobile from './StudentsListMobile';
 import Axios from 'axios'; 
 
 
 function Students() {
 
   const [courseData, setCourseData] = useState([]);
+  const [studentData, setStudentData] = useState([]);
+  const [windowWidth, setWindowWidth] = useState([]);
+
+  const getStudents = () => {
+    Axios.get("https://vottron.herokuapp.com/students").then((response) => {
+      const data = response.data;
+      // let dataArray = [...rows];
+      console.log(data)
+      setStudentData([...data]);
+    })
+  }
+
+  console.log(studentData)
 
   const getCourseData = () => {
     Axios.get('https://vottron.herokuapp.com/courses/coursetitles')
@@ -17,7 +31,12 @@ function Students() {
     })
   }
 
-  useEffect(() => {getCourseData()}, []);
+  useEffect(() => {
+    getCourseData(); 
+    getStudents();
+  }, []);
+
+  window.addEventListener('resize', () => {setWindowWidth(window.innerWidth)})
 
   return (
     <div className="pageBg">
@@ -43,7 +62,19 @@ function Students() {
               </Button>
             </Grid>
           </Grid> */}
-            <StudentsTable courseData={courseData}/>
+          {windowWidth <= 800 ?
+            <StudentsListMobile 
+            courseData={courseData} 
+            studentData={studentData}
+            getStudents={getStudents}
+            />
+            :
+            <StudentsTable
+            courseData={courseData}
+            studentData={studentData} 
+            getStudents={getStudents}
+            />
+          }
         </Container>
       </div>
     </div>

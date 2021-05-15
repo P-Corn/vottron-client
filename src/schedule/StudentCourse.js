@@ -9,11 +9,18 @@ import StudentNotes from './StudentNotes'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import StudentActivity from './StudentActivity'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
 	paper: {
-		padding: '30px'
-	}
-})
+		padding: '30px',
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: '20px',
+      paddingRight: '20px',
+    },
+	},
+  cardTitle: {
+    marginBottom: '10px',
+  }
+}))
 
 function StudentCourse({history}) {
 
@@ -100,15 +107,9 @@ function StudentCourse({history}) {
             alignItems="center" 
             container
           >
-            <IconButton
-            color="primary"
-            onClick={() => history.replace('/schedule')}
-            >
-              <ArrowBackIcon fontSize="large"/>
-            </IconButton>
-            <Typography variant="h5">
+            <Button size="large" variant="text" color="primary" onClick={() => history.push('/schedule')} startIcon={<ArrowBackIcon/>}>
               Go back
-            </Typography>
+            </Button>
           </Grid>
           <Box pb={3}/>
           <Grid
