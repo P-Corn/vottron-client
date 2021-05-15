@@ -95,15 +95,14 @@ function ActivityEdit({currentActivity, getActivities, setEditActivity, setCurre
                 >
                     <Button
                     color="primary"
-                    variant="contained"
-                    startIcon={<Save/>}
+                    variant="outlined"
 					type="submit"
                     >
                         Save
                     </Button>
                 </Grid>
             </Grid>
-			<Box p={2}>
+			<Box>
 				<Grid 
 				direction="column" 
 				container
@@ -119,7 +118,6 @@ function ActivityEdit({currentActivity, getActivities, setEditActivity, setCurre
 						<TextField 
 						value={activitytitle}
 						label={`Title ${validate.check(activitytitle, 36) ? '(max 36 characters)' : ''}`}
-						variant="outlined"
 						fullWidth
 						error={validate.check(activitytitle, 36)}
 						onChange={(e) => setActivityTitle(e.target.value)}
@@ -132,7 +130,6 @@ function ActivityEdit({currentActivity, getActivities, setEditActivity, setCurre
 					>
 						<TextField 
 						value={activitydescription}
-						variant="outlined"
 						multiline
 						label={`Instructions ${validate.check(activitydescription, 255) ? '(max 255 characters)' : ''}`}
 						fullWidth
@@ -148,7 +145,6 @@ function ActivityEdit({currentActivity, getActivities, setEditActivity, setCurre
 					>
 						<TextField 
 						value={activitysolution}
-						variant="outlined"
 						error={validate.check(activitysolution, 255)}
 						label={`Solution ${validate.check(activitysolution, 255) ? '(max 255 characters)' : ''}`}
 						multiline

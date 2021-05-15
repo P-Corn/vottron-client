@@ -54,7 +54,7 @@ const headCells = [
     disablePadding: false,
     label: "Name"
   },
-  { id: "course", numeric: false, disablePadding: false, label: "Course" },
+  { id: "course", numeric: false, disablePadding: false, label: "Class" },
   { id: "active", numeric: true, disablePadding: false, label: "Active" },
   { id: "age", numeric: true, disablePadding: false, label: "Age" },
   {

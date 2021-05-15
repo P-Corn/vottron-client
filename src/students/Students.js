@@ -34,6 +34,7 @@ function Students() {
   useEffect(() => {
     getCourseData(); 
     getStudents();
+    setWindowWidth(window.innerWidth)
   }, []);
 
   window.addEventListener('resize', () => {setWindowWidth(window.innerWidth)})

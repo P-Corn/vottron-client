@@ -21,7 +21,7 @@ function CourseInfo({courseTitle, courseDesc, courseImg, setEditCourse}) {
 
   return (
     <Paper
-      className="course-dashboard-paper"
+      className="paper"
       elevation={2}
     >
       <Grid
@@ -44,8 +44,7 @@ function CourseInfo({courseTitle, courseDesc, courseImg, setEditCourse}) {
         <Grid item>
           <Button
           color="primary"
-          variant="contained"
-          startIcon={<CreateIcon/>}
+          variant="outlined"
           onClick={() => setEditCourse(true)}
           type="submit"
           >

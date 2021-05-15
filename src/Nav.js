@@ -62,7 +62,7 @@ const Nav = ({history}) => {
                 aria-label="menu"
                 onClick={handleMenu}
               >
-                <MenuIcon />
+                <MenuIcon fontSize="large" />
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -87,8 +87,9 @@ const Nav = ({history}) => {
               : (
                 <>
                 <ButtonGroup>
+                  <Button className={classes.navLink} variant="text" onClick={() => history.push('/')}>Home</Button>
                   <Button className={classes.navLink} variant="text" onClick={() => history.push('/schedule')}>Schedule</Button>
-                  <Button className={classes.navLink} variant="text" onClick={() => history.push('/courses')}>Courses</Button>
+                  <Button className={classes.navLink} variant="text" onClick={() => history.push('/courses')}>Classes</Button>
                   <Button className={classes.navLink} variant="text" onClick={() => history.push('/students')}>Students</Button>
                 </ButtonGroup>
                 </>

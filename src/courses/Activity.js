@@ -75,27 +75,25 @@ function Activity({clickedActivity, getActivities, setSingleActivity}) {
                 item
                 
                 >
-                    <Button
+                    <IconButton
                     color="secondary"
                     variant="outlined"
                     onClick={() => deleteActivity()}
-                    startIcon={<Delete/>}
                     >
-                        Delete
-                    </Button>
+                        <Delete/>
+                    </IconButton>
                     <Box px={1} component="span"/>
                     <Button
                     color="primary"
-                    variant="contained"
+                    variant="outlined"
                     onClick={() => setEditActivity(true)}
-                    startIcon={<Edit/>}
                     >
                         Edit
                     </Button>
                 </Grid>
             </Grid>
             <Box pb={1}/>
-            <Box p={2}>
+            <Box>
                 <Grid
                 container
                 direction="column"

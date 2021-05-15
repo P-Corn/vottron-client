@@ -50,7 +50,7 @@ function CourseActivities() {
   return (
     <Paper 
     elevation={2}
-    className="course-dashboard-paper">
+    className="paper">
       <AddActivityModal
         openModal={openModal}
         handleClose={handleClose}

@@ -58,7 +58,7 @@ function CourseInfoEdit({title, desc, img, setEditCourse, getCourseDetails, id})
 
   	return (
 	<Paper
-	className="course-dashboard-paper"
+	className="paper"
 	elevation={4}
 	>
 		{/* <Grid alignItems="center" xs={6} container item>
@@ -85,6 +85,7 @@ function CourseInfoEdit({title, desc, img, setEditCourse, getCourseDetails, id})
 		<Grid
 			container
 			justify="space-between"
+			alignItems="center"
 			>
 				<Grid alignItems="center" xs={6} container item>
 					<Grid item>
@@ -110,8 +111,7 @@ function CourseInfoEdit({title, desc, img, setEditCourse, getCourseDetails, id})
 			<Grid item>
 				<Button
 				color="primary"
-				variant="contained"
-				startIcon={<SaveIcon/>}
+				variant="outlined"
 				type="submit"
 				onClick={(e) => handleSubmit(e)}
 				>
@@ -133,7 +133,6 @@ function CourseInfoEdit({title, desc, img, setEditCourse, getCourseDetails, id})
 				>
 					<TextField 
 					value={courseTitle}
-					variant="outlined"
 					label={`Title ${validate.check(courseTitle, 36) ? '(max 36 characters)' : ''}`}
 					fullWidth
 					error={validate.check(courseTitle, 36)}
@@ -147,7 +146,6 @@ function CourseInfoEdit({title, desc, img, setEditCourse, getCourseDetails, id})
 				>
 					<TextField 
 					value={courseDesc}
-					variant="outlined"
 					label={`Description ${validate.check(courseDesc, 90) ? '(max 90 characters)' : ''}`}
 					multiline
 					fullWidth
@@ -163,8 +161,7 @@ function CourseInfoEdit({title, desc, img, setEditCourse, getCourseDetails, id})
 				>
 					<TextField 
 					value={courseImg}
-					variant="outlined"
-					label="Image"
+					label="Image URL"
 					fullWidth
 					onChange={(e) => setCourseImg(e.target.value)}
 					/>

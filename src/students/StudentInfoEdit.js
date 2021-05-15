@@ -79,7 +79,7 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
 
   	return (
 		<Paper
-		className="student-dashboard-paper"
+		className="paper"
 		elevation={2}
 		>
 			<form onSubmit={handleSubmit}>
@@ -114,8 +114,7 @@ function StudentInfoEdit({firstName, lastName, id, course, active, dob, notes, s
 					>
 						<Button
 						color="primary"
-						variant="contained"
-						startIcon={<Save/>}
+						variant="outlined"
 						type="submit"
 						onClick={(e) => handleSubmit(e)}
 						>

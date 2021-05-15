@@ -8,6 +8,7 @@ import Courses from './courses/Courses'
 import CourseDashboard from './courses/CourseDashboard'
 import StudentDashboard from './students/StudentDashboard'
 import StudentCourse from './schedule/StudentCourse'
+import Home from './Home';
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
       <div className="App">
         <Nav />
         <Switch>
-          <Route path="/" exact component={Schedule}/>
+          <Route path="/" exact component={Home}/>
           <Route exact path="/schedule" component={Schedule}/>
           <Route path="/schedule/:id" component={StudentCourse}/>
           <Route exact path="/courses" component={Courses}/>

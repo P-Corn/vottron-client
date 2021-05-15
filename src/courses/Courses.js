@@ -46,7 +46,7 @@ function Courses() {
             container
           >
             <Typography variant="h4">
-              Courses
+              Classes
             </Typography>
             <Button
             variant="contained"

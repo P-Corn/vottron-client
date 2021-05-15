@@ -54,7 +54,7 @@ function AddCourseForm({handleClose}) {
                 variant="h4"
                 className="form-row"
             >
-                Add a new course
+                Add a new class
             </Typography>
             <Grid 
              container

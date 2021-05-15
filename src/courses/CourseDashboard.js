@@ -47,7 +47,7 @@ function CourseDashboard({history}) {
               <ArrowBackIcon fontSize="large"/>
             </IconButton>
             <Typography variant="h4">
-              Course Settings
+              Class Settings
             </Typography>
           </Grid>
           <Grid
