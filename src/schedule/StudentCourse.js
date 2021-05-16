@@ -8,6 +8,7 @@ import StudentActivities from './StudentActivities'
 import StudentNotes from './StudentNotes'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import StudentActivity from './StudentActivity'
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -133,7 +134,13 @@ function StudentCourse({history}) {
                     <hr></hr>
                     <Box pb={1}/>
                     <Typography variant="h5">
-                      {`${studentData.firstname} ${studentData.lastname}`}
+                      {studentData.firstname === undefined ?
+                      <div>
+                        <Skeleton/>
+                      </div>
+                      :
+                      `${studentData.firstname} ${studentData.lastname}`
+                      }
                     </Typography>
                   </Grid>
                   <Box py={4}/>
