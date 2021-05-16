@@ -75,7 +75,7 @@ function StudentInfo({firstName, lastName, id, course, active, dob, notes, setEd
               First name:
           </Typography>
           <Box>
-            <Typography variant="h6" fontWeight={700}>
+            <Typography variant="h6">
                 {firstName}
             </Typography>
           </Box>
@@ -105,7 +105,7 @@ function StudentInfo({firstName, lastName, id, course, active, dob, notes, setEd
           <Typography color="primary" className="dashboard-label" variant="subtitle2">
             Course:
           </Typography>
-          <Typography fontWeight="fontWeightBold" variant="h6">
+          <Typography variant="h6">
             {course}
           </Typography>
         </Grid>
@@ -119,7 +119,7 @@ function StudentInfo({firstName, lastName, id, course, active, dob, notes, setEd
           <Typography color="primary" className="dashboard-label" variant="subtitle2">
             DOB:
           </Typography>
-          <Typography fontWeight="fontWeightBold" variant="h6">
+          <Typography variant="h6">
             {dob}
           </Typography>
         </Grid>
@@ -133,7 +133,7 @@ function StudentInfo({firstName, lastName, id, course, active, dob, notes, setEd
           <Typography color="primary" className="dashboard-label" variant="subtitle2">
             Active:
           </Typography>
-          <Typography fontWeight="fontWeightBold" variant="h6">
+          <Typography variant="h6">
             {active}
           </Typography>
         </Grid>
