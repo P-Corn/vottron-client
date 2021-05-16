@@ -58,7 +58,7 @@ function StudentsListMobile({studentData, getStudents, courseData, history}) {
                         </Avatar>
                     </ListItemAvatar>
 					<ListItemText 
-					primary={studentData[index].firstname} 
+					primary={`${studentData[index].firstname} ${studentData[index].lastname}`} 
 					secondary={studentData[index].course}
                     onClick={() => history.push(`/students/${studentData[index].studentid}`)}
 					/>
