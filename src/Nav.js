@@ -81,7 +81,7 @@ const Nav = ({history}) => {
               >
                 <MenuItem onClick={() => handleMenuClick('/')}>Home</MenuItem>
                 <MenuItem onClick={() => handleMenuClick('/schedule')}>Schedule</MenuItem>
-                <MenuItem onClick={() => handleMenuClick('/courses')}>Courses</MenuItem>
+                <MenuItem onClick={() => handleMenuClick('/courses')}>Classes</MenuItem>
                 <MenuItem onClick={() => handleMenuClick('/students')}>Students</MenuItem>
               </Menu>
               </>)
